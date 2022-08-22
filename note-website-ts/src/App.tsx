@@ -1,14 +1,11 @@
-import Navbar from "./components/Navbar";
+import { Todos } from "./components/Todos"
 
-const App: React.FC = () => {
+function App() {
   return (
-    <>
-      <Navbar />
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
-  );
+    <div className="App h-screen flex justify-center items-center bg-gray-100">
+      <Todos />
+    </div>
+  )
 }
 
-export default App;
+export default App
