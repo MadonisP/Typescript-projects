@@ -1,46 +1,31 @@
-import express, { Request, Response } from "express";
+import express from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 import dotenv from "dotenv";
 dotenv.config();
-import config from "config";
-import responseTime from "response-time";
-import connect from "./utils/connect";
-import logger from "./utils/logger";
-import routes from "./routes";
-import deserializeUser from "./middleware/deserializeUser";
-import { restResponseTimeHistogram, startMetricsServer } from "./utils/metrics";
-import swaggerDocs from "./utils/swagger";
 
-const port = config.get<number>("port");
+const app = express()
 
-const app = express();
+import userRoute from './routes/user-route'
+//const examQuestionsRoute = require('./routes/ExamQuestions')
+//const userExamsRoute = require('./routes/UserExams')
+//const examRoute = require('./routes/Exam')
 
-app.use(express.json());
+app.use(cors())
+app.use(bodyParser.json())
 
-app.use(deserializeUser);
+mongoose.connect(process.env.DATABASE_ACCESS || "").then(data => {
+    console.log("connected to DB")
+}).catch(error => {
+    console.log(error)
+})
 
-app.use(
-    responseTime((req: Request, res: Response, time: number) => {
-        if (req?.route?.path) {
-            restResponseTimeHistogram.observe(
-                {
-                    method: req.method,
-                    route: req.route.path,
-                    status_code: res.statusCode,
-                },
-                time * 1000
-            );
-        }
-    })
-);
+app.use('/users', userRoute)
+//app.use('/examquestions', examQuestionsRoute)
+//app.use('/exam', examRoute)
+//app.use('/userexams', userExamsRoute)
 
-app.listen(port, async () => {
-    logger.info(`App is running at http://localhost:${port}`);
-
-    await connect();
-
-    routes(app);
-
-    startMetricsServer();
-
-    swaggerDocs(app, port);
-});
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on ${process.env.PORT}`)
+})
