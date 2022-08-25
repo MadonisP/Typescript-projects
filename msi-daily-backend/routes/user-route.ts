@@ -42,7 +42,7 @@ router.post("/", async (req: Request, resp: Response) => {
         return resp.status(201).json(createdUser);
     } catch (error) {
         console.log(error)
-        return resp.json({ message: "create user failed" })
+        return resp.status(400).json({ message: "create user failed" })
     }
 })
 
@@ -58,7 +58,7 @@ router.post("/login", async (req: Request, resp: Response) => {
             return resp.status(400).json({ message: "Wrong Password" })
 
         return resp.status(200).json({ user, message: 'Authentication successful' })
-    } catch (error:any) {
+    } catch (error: any) {
         return resp.status(400).json({ message: error.message })
     }
 })
