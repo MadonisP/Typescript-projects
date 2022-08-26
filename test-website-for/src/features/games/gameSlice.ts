@@ -17,9 +17,7 @@ const initialState: GameState = {
 }
 
 // actions are processes that get data from backend
-export const getGames = createAsyncThunk<Game[]>(
-    "games/getGames",
-    async (_, thunkAPI) => {
+export const getGames = createAsyncThunk<Game[]>("games/getGames",async (_, thunkAPI) => {
         try {
             const response = await axios.get("http://localhost:5000/api/games");
             return response.data;
@@ -29,9 +27,7 @@ export const getGames = createAsyncThunk<Game[]>(
     }
 );
 
-export const createGame = createAsyncThunk<Object, Game>(
-    "games/createGame",
-    async (data, thunkAPI) => {
+export const createGame = createAsyncThunk<Object, Game>("games/createGame",async (data, thunkAPI) => {
         try {
             const response = await axios.post("http://localhost:5000/api/games/game", data);
             thunkAPI.dispatch(getGames());

@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GamesPage from './features/games/GamesPage';
 import { getGames } from './features/games/gameSlice';
 import { useAppDispatch } from './store/store';
-
+import Navbar from './components/Navbar';
+import CreateGame from './features/games/CreateGame';
 function App() {
   const dispatch = useAppDispatch();
 
@@ -16,11 +17,15 @@ function App() {
   }, [])
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<GamesPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Navbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<GamesPage />} />
+          <Route path="/create" element={<CreateGame />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
