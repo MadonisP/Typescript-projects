@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "./store/store";
-import { add, toggleComplated, remove } from './features/todoSlice'
+import { add, toggleCompleted, remove } from './features/todoSlice'
 
 function App() {
   const todos = useAppSelector((state) => state.todos);
@@ -18,7 +18,7 @@ function App() {
   }
 
   const toggle = (id: string) => {
-    dispatch(toggleComplated(id))
+    dispatch(toggleCompleted(id))
   }
 
   return (
@@ -28,7 +28,7 @@ function App() {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id} >
-            <button onClick={() => toggle(todo.id)}>{todo.complated ? "mark not complated" : "mark complated"}</button>
+            <button onClick={() => toggle(todo.id)}>{todo.completed ? "mark not complated" : "mark complated"}</button>
             <button onClick={() => onDelete(todo.id)}>Delete</button>
             <span>
               {todo.title}

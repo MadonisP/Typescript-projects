@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 export interface Todo {
     id: string;
     title: string;
-    complated: boolean;
+    completed: boolean;
 }
 
 const initialState: Todo[] = [];
@@ -17,18 +17,18 @@ const todoSlice = createSlice({
             const newTodo = {
                 id: v4(),
                 title: action.payload,
-                complated: false
+                completed: false
             };
             state.push(newTodo);
         },
         remove: (state, action: PayloadAction<string>) => {
             return state.filter(todo => todo.id !== action.payload)
         },
-        toggleComplated: (state, action: PayloadAction<string>) => {
-            return state.map(todo => todo.id === action.payload ? { ...todo, complated: false } : todo)
+        toggleCompleted: (state, action: PayloadAction<string>) => {
+            return state.map((todo) => todo.id === action.payload ? { ...todo, complated: false } : todo)
         }
     }
 });
 
 export default todoSlice.reducer;
-export const { add, remove, toggleComplated } = todoSlice.actions; 
+export const { add, remove, toggleCompleted } = todoSlice.actions; 
