@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "./store/store";
 import { add, toggleCompleted, remove } from './features/todoSlice'
+import userSlice, { fetchUser } from "./features/userSlice"
 
 function App() {
   const todos = useAppSelector((state) => state.todos);
+  const user = useAppSelector((state) => state.user)
+
   const [title, setTitle] = useState("");
 
   const dispatch = useAppDispatch();
@@ -21,6 +24,8 @@ function App() {
     dispatch(toggleCompleted(id))
   }
 
+  const currentUser = user.data && user.data.results[0];
+
   return (
     <div>
       <input name="title" value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
@@ -36,6 +41,15 @@ function App() {
           </li>
         ))}
       </ul>
+      <div>
+        <button onClick={() => dispatch(fetchUser())}>Fetch User</button>
+        {user.loading && "Loading..."}
+        {user.error && user.error}
+        {currentUser && <div>
+          Name:{currentUser.name.title} {currentUser.name.first} {currentUser.name.last}
+          Avatar:<img src={currentUser.picture.large}></img>
+        </div>}
+      </div>
     </div >
   );
 }
