@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "./store/store";
-import { add, toggleComplated } from './features/todoSlice'
+import { add, toggleComplated, remove } from './features/todoSlice'
 
 function App() {
   const todos = useAppSelector((state) => state.todos);
   const [title, setTitle] = useState("");
 
-  const dispatch = useAppDispatch
+  const dispatch = useAppDispatch();
 
   const onSave = () => {
     dispatch(add(title));
