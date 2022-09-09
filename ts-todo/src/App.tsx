@@ -25,7 +25,7 @@ function App() {
   }
 
   const currentUser = user.data && user.data.results[0];
-
+  
   return (
     <div>
       <input name="title" value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
@@ -46,8 +46,9 @@ function App() {
         {user.loading && "Loading..."}
         {user.error && user.error}
         {currentUser && <div>
-          Name:{currentUser.name.title} {currentUser.name.first} {currentUser.name.last}
-          Avatar:<img src={currentUser.picture.large}></img>
+          <p>Name:{currentUser.name.title} {currentUser.name.first}{" "} {currentUser.name.last}</p>
+          <p>Email:{currentUser.email}</p>
+          <p>Avatar:<img src={currentUser.picture.large}></img></p>
         </div>}
       </div>
     </div >

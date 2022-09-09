@@ -17,7 +17,7 @@ const todoSlice = createSlice({
             const newTodo = {
                 id: v4(),
                 title: action.payload,
-                completed: false
+                completed: true
             };
             state.push(newTodo);
         },
@@ -25,7 +25,7 @@ const todoSlice = createSlice({
             return state.filter(todo => todo.id !== action.payload)
         },
         toggleCompleted: (state, action: PayloadAction<string>) => {
-            return state.map((todo) => todo.id === action.payload ? { ...todo, complated: false } : todo)
+            return state.map((todo) => todo.id === action.payload ? { ...todo, completed: false } : todo)
         }
     }
 });
