@@ -9,13 +9,15 @@ function App() {
 
   getExamInfos();
 
-  const Question = question.data
-  /*
-    const result = Object.keys(question).map((key) => {
-      return { [key]: question[key as keyof typeof question] };
-    });
-  */
+
+  const result = Object.keys(question).map((key) => {
+    return { [key]: question[key as keyof typeof question] };
+  });
+
+  console.log(result[0].data)
   console.log(question)
+
+
 
 
   return (
@@ -24,13 +26,7 @@ function App() {
       {question.loading && "Loading..."}
       {question.error && question.error}
       <div>
-        {question.data.length &&
-          <ul>
-            {question.map(questio =>
-              <li key={questio.id}>{questio.firstName} {questio.lastName}</li>
-            )}
-          </ul>
-        }
+
       </div>
     </div>
   );
