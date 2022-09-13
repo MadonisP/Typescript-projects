@@ -14,7 +14,7 @@ function App() {
     return { [key]: question[key as keyof typeof question] };
   });
 
-  console.log(result[0].data)
+  console.log(result[0])
   console.log(question)
 
 
@@ -26,7 +26,8 @@ function App() {
       {question.loading && "Loading..."}
       {question.error && question.error}
       <div>
-
+        {result && <div>
+        </div>}
       </div>
     </div>
   );
