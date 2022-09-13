@@ -15,7 +15,8 @@ router.post('/', (req, resp) => {
     const examQuestions = new ExamQuestions({
         examId: req.body.examId,
         questionTitle: req.body.questionTitle,
-        options: req.body.options,
+        qtrue: req.body.qtrue,
+        qfalse: req.body.qfalse,
     })
     examQuestions.save().then(data => {
         resp.json(data)

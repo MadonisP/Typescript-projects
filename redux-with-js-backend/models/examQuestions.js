@@ -7,15 +7,12 @@ const ExamQuestionsSchema = new mongoose.Schema({
     questionTitle: {
         type: String,
     },
-    options: [{
-        option: {
-            type: String,
-        },
-        isCorrect: {
-            type: Boolean,
-            default: false
-        }
-    }],
+    qtrue: {
+        type: String,
+    },
+    qfalse: {
+        type: String,
+    },
 },
 )
 

@@ -1,24 +1,36 @@
 import { useDispatch } from "react-redux";
 import { useState } from 'react';
+import { addQuestion } from '../features/apiCalls'
 
 const ReduxTest = () => {
     const [examId, setExamId] = useState("");
     const [questionTitle, setQuestionTitle] = useState("");
-    const [options, setOptions] = useState(
-        {
-            options: {
-                option: "",
-                isCorrect: false,
-            }
-        }
-    );
+    const [qtrue, setQTrue] = useState("");
+    const [qfalse, setQFalse] = useState("");
 
     const dispatch = useDispatch();
 
-    const handleOptionChange = (e) => {
-        setOptions((prev) => {
-            return { ...prev, [e.target.name]: e.target.value };
-        });
+
+
+    const handleTrue = (e) => {
+        setQTrue(e.target.value)
+    }
+    const handleFalse = (e) => {
+        setQFalse(e.target.value)
+    }
+    const handleId = (e) => {
+        setExamId(e.target.value)
+    }
+
+    const handleTitle = (e) => {
+        setQuestionTitle(e.target.value)
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        const quizRequest = { questionTitle: questionTitle, examId: examId, qtrue: qtrue, qfalse: qfalse }
+        console.log(quizRequest)
+        addQuestion(quizRequest, dispatch);
     }
 
 
@@ -32,6 +44,7 @@ const ReduxTest = () => {
                         name="examId"
                         type="text"
                         placeholder="df21ad548a65sd2a13ad56"
+                        onChange={handleId}
                     />
                 </div>
                 <div>
@@ -40,40 +53,28 @@ const ReduxTest = () => {
                         name="qTitle"
                         type="text"
                         placeholder="bir elimizde kaç parmak var"
+                        onChange={handleTitle}
                     />
                 </div>
                 <div>
-                    <label>Option 1</label>
+                    <label>True</label>
                     <input
-                        name="o1"
+                        name="True"
                         type="text"
                         placeholder="1"
+                        onChange={handleTrue}
                     />
                 </div>
                 <div>
-                    <label>Option 2</label>
+                    <label>False</label>
                     <input
-                        name="o2"
+                        name="False"
                         type="text"
                         placeholder="2"
+                        onChange={handleFalse}
                     />
                 </div>
-                <div>
-                    <label>Option 3</label>
-                    <input
-                        name="o3"
-                        type="text"
-                        placeholder="3"
-                    />
-                </div>
-                <div>
-                    <label>Stock</label>
-                    <select name="inStock" >
-                        <option value="true">Correct Answer</option>
-                        <option value="false">Wrong Answer</option>
-                    </select>
-                </div>
-                <button >
+                <button onClick={handleClick}>
                     Create
                 </button>
             </form>
